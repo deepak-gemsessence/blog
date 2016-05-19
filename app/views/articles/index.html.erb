@@ -1,0 +1,29 @@
+<h1>all titles</h1>
+<%= @count %>
+<table>
+  <tr>
+    <th>Title</th>
+    <th>User</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @articles.each do |article| %>
+
+  <tr>
+    <td><%= article.title.capitalize %></td>
+    <td><%= article.user.capitalize %></td>
+    <td><%= article.description.first(20) %></td>
+    <td> <%= link_to "view", article %> </td>
+    <td> <%= link_to "edit", edit_article_path(article) %> </td>
+    <td> <%= link_to "delete", article, method: :delete, data: { confirm: "You sure?" } %> </td>
+  </tr>
+
+  <% end %>
+
+</table>
+
+<%= link_to " new article ", new_article_path %>

@@ -1,0 +1,20 @@
+<h1>show article page</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>User</th>
+    <th>Description</th>
+  </tr>
+
+  <tr>
+    <td><%= @article.title %></td>
+    <td><%= @article.user %></td>
+    <td><%= @article.description %></td>
+  </tr>
+
+</table>
+
+<%= link_to "view all articles", articles_path %>
+<br>
+<%= link_to " new article ", new_article_path %>
