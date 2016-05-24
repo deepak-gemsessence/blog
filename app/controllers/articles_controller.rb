@@ -1,21 +1,20 @@
 class ArticlesController < ApplicationController
 
+  skip_before_action :check_user_log_in, except: :all
   before_action :get_id, only: [:show, :edit, :update, :destroy]
 
   def index
-    @articles = Article.all
-    @count = @articles.count
+    @articles = current_user.articles.all
   end
 
   def new
-    @article = Article.new
+    @article = current_user.articles.new
   end
 
   def create
-    # binding.pry
-    @article = Article.new(validate_params)
+    @article = current_user.articles.new(validate_params)
     if @article.save
-      redirect_to @article, alert: "hello"
+      redirect_to @article
     else
       render 'new'
     end
@@ -42,11 +41,11 @@ class ArticlesController < ApplicationController
 
   private
   def validate_params
-    params.require(:article).permit(:title, :user, :description)
+    params.require(:article).permit(:title, :description)
   end
 
   def get_id
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
   end
 
 end

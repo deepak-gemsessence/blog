@@ -1,0 +1,10 @@
+<h1>Sign In Page</h1>
+
+<%= form_tag(authenticate_user_users_path, method: "get") do %>
+  <%= label_tag(:q, "username:") %> <%= text_field_tag(:username) %> <br><br>
+  <%= label_tag(:q, "password:") %> <%= password_field_tag(:password) %> <br><br>
+  <%= submit_tag("login") %>
+<% end %>
+
+<br>
+<%= link_to "Create Account", new_user_path %>

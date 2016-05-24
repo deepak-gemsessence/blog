@@ -1,0 +1,27 @@
+<h1>show user page</h1>
+
+<% if logged_in? %>
+  Welcome <%= current_user.first_name %>
+<% end %> <br>
+
+<table>
+  <tr>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Contact No</th>
+  </tr>
+  <tr>
+    <td><%= @user.first_name %></td>
+    <td><%= @user.last_name %></td>
+    <td><%= @user.contact %></td>
+  </tr>
+</table>
+
+<br><br>
+<%= link_to "user index", users_path %>
+<br><br>
+<%= link_to "create new article ", new_article_path %>
+<br><br>
+<%= link_to "view all aritcles", articles_path %>
+<br><br>
+<%= link_to "sign_out", sign_out_users_path %>

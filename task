@@ -1,0 +1,22 @@
+1. apply filter for repeatative code in index of user
+2. use helper methods for session
+3. shift logic 'user = User.where(username: params[:username], password: params[:password])' into model and than use in controller
+4. And now user can edit/delete there own created articles
+5. And user have to login before creating articles
+
+
+24th May, 2016
+
+1) show error message(object)
+2) show flash message
+3) sign_in in application controller
+http://stackoverflow.com/questions/14752390/how-to-apply-before-filter-to-every-action-of-every-controller-in-rails-3-2-11
+(in welcome cotroller path is different)
+4. content_tag + rails4
+5. partial + rails4 + how to use
+
+
+Problem
+
+1. content_tag
+2.

@@ -3,37 +3,29 @@
 <table>
   <tr>
     <th>Title</th>
-    <th>User</th>
     <th>Description</th>
   </tr>
-
   <tr>
     <%= form_for @article do |f| %>
-
-    <p>
-      <%= f.label :title %><br>
-      <%= f.text_field :title %>
-    </p>
-
-    <p>
-      <%= f.label :user_name %><br>
-      <%= f.text_field :user %>
-    </p>
-
-    <p>
-      <%= f.label :description %><br>
-      <%= f.text_area :description %>
-    </p>
-
-    <p>
-      <%= f.submit %><br>
-    </p>
-
-  <% end %>
+      <p>
+        <%= f.label :title %><br>
+        <%= f.text_field :title %>
+      </p>
+      <p>
+        <%= f.label :description %><br>
+        <%= f.text_area :description %>
+      </p>
+      <p>
+        <%= f.submit %><br>
+      </p>
+    <% end %>
   </tr>
-
 </table>
-
-<%= link_to "view all articles", articles_path %>
-<br>
-<%= link_to " new article ", new_article_path %>
+<br><br>
+<%= link_to "user index", users_path %>
+<br><br>
+<%= link_to "create new article ", new_article_path %>
+<br><br>
+<%= link_to "view all aritcles", articles_path %>
+<br><br>
+<%= link_to "sign_out", sign_out_users_path %>

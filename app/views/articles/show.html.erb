@@ -3,18 +3,19 @@
 <table>
   <tr>
     <th>Title</th>
-    <th>User</th>
     <th>Description</th>
   </tr>
-
   <tr>
     <td><%= @article.title %></td>
-    <td><%= @article.user %></td>
     <td><%= @article.description %></td>
   </tr>
-
 </table>
 
-<%= link_to "view all articles", articles_path %>
-<br>
-<%= link_to " new article ", new_article_path %>
+<br><br>
+<%= link_to "user index", users_path %>
+<br><br>
+<%= link_to "create new article ", new_article_path %>
+<br><br>
+<%= link_to "view all aritcles", articles_path %>
+<br><br>
+<%= link_to "sign_out", sign_out_users_path %>

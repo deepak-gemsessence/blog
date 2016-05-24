@@ -1,0 +1,31 @@
+<h3>Account Creation Page</h3>
+
+<%= form_for @user do |u| %>
+
+<%= render 'errors' %>
+
+  <p>
+    First Name <%= u.text_field :first_name %>
+  </p>
+  <p>
+    Last Name <%= u.text_field :last_name %>
+  </p>
+  <p>
+    User Name <%= u.text_field :username %>
+  </p>
+  <p>
+    Password <%= u.password_field :password %>
+  </p>
+  <p>
+    Password Confirmation <%= u.password_field :password_confirmation %>
+  </p>
+  <p>
+    Contact No. <%= u.text_field :contact %>
+  </p>
+  <p>
+    <%= u.submit %><br>
+  </p>
+<% end %>
+
+<br><br>
+<%= link_to "index page", users_path %>
