@@ -1,16 +1,44 @@
 <h1>show article page</h1>
 
+<% if logged_in? %>
+  Welcome <%= current_user.first_name %>
+<% end %> <br>
+
 <table>
   <tr>
+    <th>Author</th>
     <th>Title</th>
     <th>Description</th>
   </tr>
   <tr>
+    <td><%= @article.user.username %></td>
     <td><%= @article.title %></td>
     <td><%= @article.description %></td>
   </tr>
 </table>
 
+<h3>Comments :- </h3>
+<% @article.comments.each do |comment| %>
+  <p>
+    <% if comment.is_visible_to_user?(current_user)  %>
+      <b>Commenter Name :- </b>
+      <%= comment.commenter %>
+      <% if comment.can_modify?(current_user) %>
+        <%= link_to "edit", edit_article_comment_path(@article, comment) %>
+        <%= link_to "delete", article_comment_path(@article, comment), method: :delete, data: { confirm: "Are you sure !!! "} %>
+      <% end %>
+      <% if comment.is_article_owner?(current_user) %>
+        <%= link_to "approve", approve_article_comment_path(@article, comment.id), method: :patch unless comment.approved %>
+      <% end %>
+      <br>
+      <b>Comment::- </b>
+      <%= comment.body %>
+    <% end %>
+  </p>
+<% end %>
+
+<br><br>
+<%= link_to "comment", new_article_comment_path(@article) %>
 <br><br>
 <%= link_to "user index", users_path %>
 <br><br>

@@ -11,7 +11,11 @@ Rails.application.routes.draw do
   end
   # get '/test' => 'users#sign_in', as: :sign_in_users
 
-  resources :articles
+  resources :articles do
+    resources :comments do
+      patch :approve, on: :member
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

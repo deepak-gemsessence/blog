@@ -1,17 +1,16 @@
-<h1>new title</h1>
+<h3>Edit Comments</h3>
 
 <% if logged_in? %>
   Welcome <%= current_user.first_name %>
 <% end %> <br>
-
-<%= form_for @article do |f| %>
+<%= form_for @comment, url: article_comment_path(@comment.article_id, @comment), method: :patch do |f| %>
   <p>
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.label :commenter%><br>
+    <%= f.text_field :commenter, value: current_user.first_name, readonly: true %>
   </p>
   <p>
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+    <%= f.label :body %><br>
+    <%= f.text_area :body %>
   </p>
   <p>
     <%= f.submit %><br>

@@ -1,5 +1,9 @@
-<h1>all titles</h1>
-<h2> No of articles are : <%= @articles.count %></h4>
+<h2>all titles</h2>
+<h3> No of articles are : <%= @articles.count %></h3>
+
+<% if logged_in? %>
+  Welcome <%= current_user.first_name %>
+<% end %> <br>
 
 <table>
   <tr>
@@ -10,7 +14,7 @@
     <th></th>
     <th></th>
   </tr>
-  <% @current_user.articles.each do |article| %>
+  <% @articles.each do |article| %>
     <tr>
       <td><%= article.title.capitalize %></td>
       <td><%= article.description.first(20) %></td>
@@ -19,6 +23,15 @@
       <td> <%= link_to "delete", article, method: :delete, data: { confirm: "You sure?" } %> </td>
     </tr>
   <% end %>
+
+  <td><b>Other Authers Articles<b></td>
+  <% @other_authors_articles.each do |article| %>
+    <tr>
+      <td><%= article.title.capitalize %></td>
+      <td><%= article.description.first(20) %></td>
+      <td> <%= link_to "view", article %> </td>
+    </tr>
+  <% end -%>
 </table>
 
 <br><br>
