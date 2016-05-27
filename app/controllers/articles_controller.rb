@@ -3,8 +3,11 @@ class ArticlesController < ApplicationController
   skip_before_action :check_user_log_in, except: :all
   before_action :get_id, only: [:show, :edit, :update, :destroy]
 
+
   def index
     @articles = current_user.articles.all
+    # @all_articles = Article.where.not(user_id: current_user.id)
+    @other_authors_articles = Article.other_authors_articles(current_user.id)
   end
 
   def new
@@ -45,7 +48,7 @@ class ArticlesController < ApplicationController
   end
 
   def get_id
-    @article = current_user.articles.find(params[:id])
+    @article = Article.find(params[:id])
   end
 
 end

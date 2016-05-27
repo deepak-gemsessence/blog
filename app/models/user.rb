@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
 
   has_many :articles, dependent: :destroy
+  has_many :comments
 
   validates :first_name, :last_name, :contact, presence: true
   validates :password, confirmation: true, on: :create

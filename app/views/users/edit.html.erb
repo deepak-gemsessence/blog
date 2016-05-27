@@ -1,5 +1,9 @@
 <h3>Edit User Details</h3>
 
+<% if logged_in? %>
+  Welcome <%= current_user.first_name %>
+<% end %> <br>
+
 <table>
   <tr>
     <%= form_for @user do |f| %>
