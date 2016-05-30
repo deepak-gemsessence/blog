@@ -1,8 +1,9 @@
 <h2>all titles</h2>
-<h3> No of articles are : <%= @articles.count %></h3>
+
 
 <% if logged_in? %>
   Welcome <%= current_user.first_name %>
+  <h3> No of articles are : <%= @articles.count %></h3>
 <% end %> <br>
 
 <table>
@@ -14,29 +15,36 @@
     <th></th>
     <th></th>
   </tr>
-  <% @articles.each do |article| %>
-    <tr>
-      <td><%= article.title.capitalize %></td>
-      <td><%= article.description.first(20) %></td>
-      <td> <%= link_to "view", article %> </td>
-      <td> <%= link_to "edit", edit_article_path(article) %> </td>
-      <td> <%= link_to "delete", article, method: :delete, data: { confirm: "You sure?" } %> </td>
-    </tr>
+
+  <% if logged_in? %>
+    <% @articles.each do |article| %>
+      <tr>
+        <%= render 'view_article', art: article %>
+        <td> <%= link_to "edit", edit_article_path(article) %> </td>
+        <td> <%= link_to "delete", article, method: :delete, data: { confirm: "You sure?" } %> </td>
+      </tr>
+    <% end %>
+    <td><b>Other Authers Articles<b></td>
+    <% @other_authors_articles.each do |article| %>
+      <tr>
+      <%= render 'view_article', art: article %>
+      </tr>
+    <% end -%>
+  <% else %>
+    <td><b>All Articles<b></td>
+    <% @all_articles.each do |article| %>
+      <tr>
+        <%= render 'view_article', art: article %>
+      </tr>
+    <% end -%>
   <% end %>
 
-  <td><b>Other Authers Articles<b></td>
-  <% @other_authors_articles.each do |article| %>
-    <tr>
-      <td><%= article.title.capitalize %></td>
-      <td><%= article.description.first(20) %></td>
-      <td> <%= link_to "view", article %> </td>
-    </tr>
-  <% end -%>
+
 </table>
 
-<br><br>
-<%= link_to "user index", users_path %>
-<br><br>
-<%= link_to "create new article ", new_article_path %>
-<br><br>
-<%= link_to "sign_out", sign_out_users_path %>
+<%if !logged_in? %>
+  <br><br>
+  <%= link_to "Log in Page", welcome_index_path %>
+<%else%>
+  <%= render 'users/footer' %>
+<% end %>

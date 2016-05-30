@@ -45,7 +45,7 @@ class UsersController < ApplicationController
       @user.destroy
       reset_session
       flash[:notice] = "You have successfully logged out."
-      redirect_to root_path
+      redirect_to welcome_index_path
     else
       @user.destroy
       redirect_to users_path
@@ -64,14 +64,14 @@ class UsersController < ApplicationController
       session[:current_user_id] = user.first.id
       redirect_to users_path
     else
-      redirect_to root_path
+      redirect_to welcome_index_path
     end
   end
 
   def sign_out
     reset_session
     flash[:notice] = "You have successfully logged out."
-    redirect_to root_path
+    redirect_to articles_path
   end
 
   private

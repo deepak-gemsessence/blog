@@ -3,7 +3,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
 
   def is_commenter?(user)
-    user.id == self.user_id
+    user.id == self.user_id unless user.nil?
   end
 
   def can_modify?(user)
@@ -11,7 +11,7 @@ class Comment < ActiveRecord::Base
   end
 
   def is_article_owner?(user)
-    self.article.user_id == user.id
+    self.article.user_id == user.id unless user.nil?
   end
 
   def is_visible_to_user?(user)

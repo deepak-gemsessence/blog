@@ -1,13 +1,16 @@
 class ArticlesController < ApplicationController
 
-  skip_before_action :check_user_log_in, except: :all
+  skip_before_action :check_user_log_in
   before_action :get_id, only: [:show, :edit, :update, :destroy]
 
 
   def index
-    @articles = current_user.articles.all
-    # @all_articles = Article.where.not(user_id: current_user.id)
-    @other_authors_articles = Article.other_authors_articles(current_user.id)
+    if !logged_in?
+      @all_articles = Article.all
+    else
+      @articles = current_user.articles
+      @other_authors_articles = Article.other_authors_articles(current_user.id)
+    end
   end
 
   def new
@@ -24,6 +27,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    @comments = @article.comments
   end
 
   def edit

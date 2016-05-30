@@ -1,9 +1,9 @@
 <h1>User Index</h1>
 
-No of users are : <%= @users.count %><br>
 
 <% if logged_in? %>
   Welcome <%= current_user.first_name %>
+  No of users are : <%= @users.count %><br>
 <% end %> <br>
 
 <table>
@@ -30,11 +30,6 @@ No of users are : <%= @users.count %><br>
   <% end %>
 
 </table>
-<br><br>
-<%= link_to "create new article ", new_article_path %>
-<br><br>
-<%= link_to "view all aritcles", articles_path %>
-<br><br>
-<%= link_to "sign_out", sign_out_users_path %>
+<%= render 'footer' %>
 
 
