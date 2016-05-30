@@ -18,7 +18,7 @@
 </table>
 
 <h3>Comments :- </h3>
-<% @article.comments.each do |comment| %>
+<% @comments.each do |comment| %>
   <p>
     <% if comment.is_visible_to_user?(current_user)  %>
       <b>Commenter Name :- </b>
@@ -39,11 +39,4 @@
 
 <br><br>
 <%= link_to "comment", new_article_comment_path(@article) %>
-<br><br>
-<%= link_to "user index", users_path %>
-<br><br>
-<%= link_to "create new article ", new_article_path %>
-<br><br>
-<%= link_to "view all aritcles", articles_path %>
-<br><br>
-<%= link_to "sign_out", sign_out_users_path %>
+<%= render 'users/footer' %>

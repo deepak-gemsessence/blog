@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :check_user_log_in
 
   def current_user
+
     @current_user ||= User.find_by_id(session[:current_user_id])
   end
 
@@ -15,8 +16,9 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
   def check_user_log_in
-    redirect_to root_path unless session[:current_user_id].present?
+    redirect_to welcome_index_path unless session[:current_user_id].present?
   end
 
 end
