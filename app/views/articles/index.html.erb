@@ -44,7 +44,7 @@
 
 <%if !logged_in? %>
   <br><br>
-  <%= link_to "Log in Page", welcome_index_path %>
+  <%= link_to "Log in Page", sign_in_users_path %>
 <%else%>
   <%= render 'users/footer' %>
 <% end %>
