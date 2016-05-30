@@ -27,6 +27,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    redirect_to users_path unless @user.match_current_user(current_user)
   end
 
   def update
@@ -64,7 +65,8 @@ class UsersController < ApplicationController
       session[:current_user_id] = user.first.id
       redirect_to users_path
     else
-      redirect_to welcome_index_path
+      flash.now[:sign_in_error] = "username or password invalid !!!"
+      render 'sign_in'
     end
   end
 

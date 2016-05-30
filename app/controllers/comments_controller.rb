@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   before_action :show_modifiable, only: [:update, :edit]
 
   def new
-    @comment = @current_article.comments.new
+    # @comment = @current_article.comments.new
   end
 
   def create
@@ -62,15 +62,11 @@ class CommentsController < ApplicationController
   end
 
   def yet_not_approved
-    unless @comment.is_article_owner?(current_user)
-      redirect_to article_path(@current_article)
-    end
+    redirect_to article_path(@current_article) unless @comment.is_article_owner?(current_user)
   end
 
   def show_modifiable
-    unless @comment.can_modify?(current_user)
-      redirect_to article_path(@current_article)
-    end
+    redirect_to article_path(@current_article) unless @comment.can_modify?(current_user)
   end
 
 end

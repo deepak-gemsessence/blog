@@ -27,7 +27,8 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @comments = @article.comments
+    @comments = @article.comments.order(created_at: :desc).last(10)
+    @comment = @article.comments.new
   end
 
   def edit
@@ -47,6 +48,7 @@ class ArticlesController < ApplicationController
   end
 
   private
+
   def validate_params
     params.require(:article).permit(:title, :description)
   end

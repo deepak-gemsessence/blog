@@ -23,8 +23,10 @@
     <td><%= user.last_name %></td>
     <td><%= user.contact %></td>
     <td><%= link_to "view", user %></td>
-    <td><%= link_to "edit", edit_user_path(user) %></td>
-    <td><%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" } %></td>
+    <% if user.match_current_user(current_user) %>
+      <td><%= link_to "edit", edit_user_path(user) %></td>
+      <td><%= link_to "delete", user, method: :delete, data: { confirm: "You sure?" } %></td>
+    <% end %>
   </tr>
 
   <% end %>
