@@ -1,0 +1,4 @@
+
+$(".comments").prepend("<%= j(render partial: 'comment', locals: { comment: @comment, article: @comment.article}) %>");
+
+$("#body_input").val('');

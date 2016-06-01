@@ -27,7 +27,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @comments = @article.comments.order(created_at: :desc).last(10)
+    @comments = @article.comments.order(created_at: :desc).first(10)
     @comment = @article.comments.new
   end
 
@@ -50,7 +50,7 @@ class ArticlesController < ApplicationController
   private
 
   def validate_params
-    params.require(:article).permit(:title, :description)
+    params.require(:article).permit(:title, :description, comments_attributes: [:id, :commenter, :body])
   end
 
   def get_id

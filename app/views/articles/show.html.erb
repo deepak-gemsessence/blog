@@ -1,3 +1,5 @@
+<%= javascript_include_tag :defaults, "nested_form" %>
+
 <h1>show article page</h1>
 
 <% if logged_in? %>
@@ -17,42 +19,50 @@
   </tr>
 </table>
 
+
+
+
+
+
+
 <h2>Make Comment</h2>
-<%= form_for @comment , url: article_comments_path(@article), method: :post do |f| %>
+<%= nested_form_for @article do |f| %>
+  <%= f.fields_for :comments, remote: true, url: article_comments_path(@article), method: :post, wrapper: false do |comment_form| %>
+    <% unless comment_form.object.persisted? %>
+      <p>
+        <%= comment_form.label :commenter%><br>
+        <%= comment_form.text_field :commenter, value: current_user.first_name, readonly: true %>
+      </p>
+      <p>
+        <%= comment_form.label :body %><br>
+        <%= comment_form.text_area :body, id: "body_input" %>
+      </p>
+    <% end %>
+  <% end %>
   <p>
-    <%= f.label :commenter%><br>
-    <%= f.text_field :commenter, value: current_user.first_name, readonly: true %>
-  </p>
-  <p>
-    <%= f.label :body %><br>
-    <%= f.text_area :body %>
+    <%= f.link_to_add "add a comment", :comments %>
   </p>
   <p>
     <%= f.submit %><br>
   </p>
 <% end %>
 
+
+
+
+
+
+
+
+
 <% if @comments.present? %>
   <h4> No. of Comments :- <%= @article.comments.count %> </h4>
   <h3> Older Comments :- </h3>
-  <% @comments.each do |comment| %>
-    <p>
-      <% if comment.is_visible_to_user?(current_user)  %>
-        <b>Commenter Name :- </b>
-        <%= comment.commenter %>
-        <% if comment.can_modify?(current_user) %>
-          <%= link_to "edit", edit_article_comment_path(@article, comment) %>
-          <%= link_to "delete", article_comment_path(@article, comment), method: :delete, data: { confirm: "Are you sure !!! "} %>
-        <% end %>
-        <% if comment.is_article_owner?(current_user) %>
-          <%= link_to "approve", approve_article_comment_path(@article, comment.id), method: :patch if !comment.new_record? and !comment.approved  %>
-        <% end %>
-        <br>
-        <b>Comment::- </b>
-        <%= comment.body %>
-      <% end %>
-    </p>
-  <% end %>
+  <div class="comments">
+    <% @comments.each do |comment| %>
+      <%= render comment, article: @article %><br><br>
+    <% end %>
+  </div>
 <% end %>
 
 
