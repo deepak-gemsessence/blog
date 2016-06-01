@@ -13,10 +13,6 @@ class User < ActiveRecord::Base
     User.where(username: user, password: password)
   end
 
-  # def self.match_current_user(user, current_user)
-  #   user==current_user
-  # end
-
   def match_current_user(current_user)
     self == current_user
   end

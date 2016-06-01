@@ -6,22 +6,23 @@ class CommentsController < ApplicationController
   before_action :show_modifiable, only: [:update, :edit]
 
   def new
-    # @comment = @current_article.comments.new
   end
 
   def create
     params[:comment].merge!({user_id: current_user.id})
     @comment = @current_article.comments.new(validate_params)
-    # if Comment.auto_approve_authors_comment(current_user, @current_article)
-    #   @comment.update_attribute(:approved, true)
-    # end
     @comment.authors_comment(current_user)
-    if @comment.save
-      redirect_to article_path(@current_article)
-    else
-      render 'new'
+
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to article_path(@current_article), notice: "comment is done" }
+        format.js {render 'create'}
+      else
+        format.html { render 'new'}
+      end
     end
   end
+
 
   def show
   end
@@ -43,8 +44,11 @@ class CommentsController < ApplicationController
   end
 
   def approve
-    @comment.update_attribute(:approved, true)
-    redirect_to article_path(@current_article)
+    respond_to do |format|
+      @comment.update_attribute(:approved, true)
+      format.html { redirect_to article_path(@current_article) }
+      format.js {}
+    end
   end
 
   private

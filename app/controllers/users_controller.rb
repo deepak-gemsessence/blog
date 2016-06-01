@@ -39,9 +39,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    # if @user == current_user # move this logic in model
-    # if User.match_current_user(@user,current_user)
-
     if @user.match_current_user(current_user)
       @user.destroy
       reset_session
@@ -58,7 +55,6 @@ class UsersController < ApplicationController
   end
 
   def authenticate_user
-    # user = User.where(username: params[:username], password: params[:password])
     user = User.search_user(params[:username], params[:password])
     if user.present?
       flash[:success] = "Welcome to our web-site"

@@ -2,6 +2,8 @@ class Comment < ActiveRecord::Base
   belongs_to :article
   belongs_to :user
 
+  # validates :body, presence: true, length: { in: 5..100 }
+
   def is_commenter?(user)
     user.id == self.user_id unless user.nil?
   end
@@ -24,22 +26,3 @@ class Comment < ActiveRecord::Base
   end
 
 end
-
-
-  # def self.auto_approve_authors_comment(user, current_article)
-  #   user.id == current_article.user_id
-  # end
-
-
-# def check_current_user_and_commenter(user)
-  #   user.id == self.user_id
-  # end
-
-  # def approve_comment(user)
-  #   user.id == self.article.user_id
-  # end
-
-  # def comments_for_author_and_commenter(user)
-  #   binding.pry
-  #   (!self.approved && self.user_id == user.id || self.article.user_id == user.id) || self.approved
-  # end

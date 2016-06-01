@@ -1,0 +1,18 @@
+<p>
+  <% if comment.is_visible_to_user?(current_user) && article.present? %>
+    <b>Commenter Name :- </b>
+    <%= comment.commenter %>
+    <% if comment.can_modify?(current_user) %>
+      <%= link_to "edit", edit_article_comment_path(article, comment) %>
+      <%= link_to "delete", article_comment_path(article, comment), method: :delete, data: { confirm: "Are you sure !!! "} %>
+    <% end %>
+    <% if comment.is_article_owner?(current_user) %>
+      <div id="approve_<%= comment.id %>">
+        <%= link_to "approve", approve_article_comment_path(article, comment.id), remote: true, method: :patch if !comment.new_record? and !comment.approved %>
+      </div>
+    <% end %>
+    <br>
+    <b>Comment::- </b>
+    <%= comment.body %>
+  <% end %>
+</p>
