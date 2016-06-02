@@ -1,10 +1,7 @@
 <h1>User Index</h1>
 
-
-<% if logged_in? %>
-  Welcome <%= current_user.first_name %>
-  No of users are : <%= @users.count %><br>
-<% end %> <br>
+<%= render 'welcome' %>
+No of users are : <%= @users.count %><br>
 
 <table>
   <tr>

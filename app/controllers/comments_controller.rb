@@ -9,18 +9,17 @@ class CommentsController < ApplicationController
   end
 
   def create
-    params[:comment].merge!({user_id: current_user.id})
-    @comment = @current_article.comments.new(validate_params)
-    @comment.authors_comment(current_user)
-
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to article_path(@current_article), notice: "comment is done" }
-        format.js {render 'create'}
-      else
-        format.html { render 'new'}
-      end
-    end
+    # params[:comment].merge!({user_id: current_user.id})
+    # @comment = @current_article.comments.new(validate_params)
+    # @comment.authors_comment(current_user)
+    # respond_to do |format|
+    #   if @comment.save
+    #     format.html { redirect_to article_path(@current_article), notice: "comment is done" }
+    #     format.js {render 'create'}
+    #   else
+    #     format.html { render 'new'}
+    #   end
+    # end
   end
 
 

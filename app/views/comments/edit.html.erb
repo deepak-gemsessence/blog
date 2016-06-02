@@ -1,8 +1,6 @@
 <h3>Edit Comments</h3>
 
-<% if logged_in? %>
-  Welcome <%= current_user.first_name %>
-<% end %> <br>
+<%= render 'users/welcome' %> <br>
 <%= form_for @comment, url: article_comment_path(@comment.article_id, @comment), method: :patch do |f| %>
   <p>
     <%= f.label :commenter%><br>

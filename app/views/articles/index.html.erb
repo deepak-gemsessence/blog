@@ -1,10 +1,8 @@
 <h2>all titles</h2>
 
-
-<% if logged_in? %>
-  Welcome <%= current_user.first_name %>
-  <h3> No of articles are : <%= @articles.count %></h3>
-<% end %> <br>
+<%= render 'users/welcome' %>
+<h3> No of articles are : <%= @articles.count if logged_in? %></h3>
+<br>
 
 <table>
   <tr>
@@ -43,8 +41,7 @@
 </table>
 
 <%if !logged_in? %>
-  <br><br>
-  <%= link_to "Log in Page", sign_in_users_path %>
+  <%= render 'users/not_logged_in' %>
 <%else%>
   <%= render 'users/footer' %>
 <% end %>

@@ -27,7 +27,4 @@
   </p>
 <% end %>
 
-<br><br>
-<%= link_to "Sign in", sign_in_users_path %>
-<br><br>
-<%= link_to "Home Page", articles_path %>
+<%= render 'users/not_logged_in' %>

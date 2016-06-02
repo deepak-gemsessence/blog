@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article = current_user.articles.new
+    @article = Article.new
   end
 
   def create
@@ -35,6 +35,9 @@ class ArticlesController < ApplicationController
   end
 
   def update
+    # have to pass approved=true for author
+    # @comment.authors_comment(current_user)
+    binding.pry
     if @article.update(validate_params)
       redirect_to @article
     else
@@ -50,11 +53,14 @@ class ArticlesController < ApplicationController
   private
 
   def validate_params
-    params.require(:article).permit(:title, :description, comments_attributes: [:id, :commenter, :body])
+    a = params['article']["comments_attributes"] && params['article']["comments_attributes"].each{|k, v| v.merge!(user_id: current_user.id)}
+
+    params.require(:article).permit(:title, :description, comments_attributes: [:id, :commenter, :user_id, :body, :approved])
+
   end
 
   def get_id
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
   end
 
 end

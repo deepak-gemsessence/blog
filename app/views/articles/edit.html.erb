@@ -1,8 +1,6 @@
 <h1>Edit Article</h1>
 
-<% if logged_in? %>
-  Welcome <%= current_user.first_name %>
-<% end %> <br>
+<%= render 'users/welcome' %> <br>
 
 <table>
   <tr>

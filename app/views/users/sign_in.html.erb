@@ -6,7 +6,6 @@
   <%= submit_tag("login") %>
 <% end %>
 
-<br>
-<%= link_to "Create Account", new_user_path %>
-<br><br>
-<%= link_to "Home Page", articles_path %>
+
+
+<%= render 'users/not_logged_in' %>
