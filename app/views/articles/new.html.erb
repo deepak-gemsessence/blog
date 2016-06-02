@@ -2,9 +2,7 @@
 
 <h1>new title</h1>
 
-<% if logged_in? %>
-  Welcome <%= current_user.first_name %>
-<% end %> <br>
+<%= render 'users/welcome' %> <br>
 
 <%= form_for @article do |f| %>
   <p>

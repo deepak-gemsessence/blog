@@ -2,9 +2,7 @@
 
 <h1>show article page</h1>
 
-<% if logged_in? %>
-  Welcome <%= current_user.first_name %>
-<% end %> <br>
+<%= render 'users/welcome' %>
 
 <table>
   <tr>
@@ -19,51 +17,40 @@
   </tr>
 </table>
 
-
-
-
-
-
-
-<h2>Make Comment</h2>
-<%= nested_form_for @article do |f| %>
-  <%= f.fields_for :comments, remote: true, url: article_comments_path(@article), method: :post, wrapper: false do |comment_form| %>
-    <% unless comment_form.object.persisted? %>
-      <p>
-        <%= comment_form.label :commenter%><br>
-        <%= comment_form.text_field :commenter, value: current_user.first_name, readonly: true %>
-      </p>
-      <p>
-        <%= comment_form.label :body %><br>
-        <%= comment_form.text_area :body, id: "body_input" %>
-      </p>
+<% if logged_in? %>
+<h3>Make Comment</h3>
+  <%= nested_form_for @article  do |f| %>
+    <%= f.fields_for :comments, remote: true, url: article_comments_path(@article), method: :post, wrapper: false  do |comment_form| %>
+      <% unless comment_form.object.persisted? %>
+        <p>
+          <%= comment_form.label :commenter%><br>
+          <%= comment_form.text_field :commenter, value: current_user.first_name, readonly: true %>
+        </p>
+        <p>
+          <%= comment_form.label :body %><br>
+          <%= comment_form.text_area :body, id: "body_input" %>
+        </p>
+      <% end %>
     <% end %>
+    <p>
+      <%= f.link_to_add "add a comment", :comments %>
+    </p>
+    <p>
+      <%= f.submit %><br>
+    </p>
   <% end %>
-  <p>
-    <%= f.link_to_add "add a comment", :comments %>
-  </p>
-  <p>
-    <%= f.submit %><br>
-  </p>
 <% end %>
 
+<h4> No. of Comments :- <%= @article.comments.count %> </h4>
+<h3> Older Comments :- </h3>
+<div class="comments">
+  <% @comments.each do |comment| %>
+    <%= render comment, article: @article %><br><br>
+  <% end %>
+</div>
 
-
-
-
-
-
-
-
-<% if @comments.present? %>
-  <h4> No. of Comments :- <%= @article.comments.count %> </h4>
-  <h3> Older Comments :- </h3>
-  <div class="comments">
-    <% @comments.each do |comment| %>
-      <%= render comment, article: @article %><br><br>
-    <% end %>
-  </div>
+<%if !logged_in? %>
+  <%= render 'users/not_logged_in' %>
+<%else%>
+  <%= render 'users/footer' %>
 <% end %>
-
-
-<%= render 'users/footer' %>
