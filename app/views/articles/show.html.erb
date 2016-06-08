@@ -1,3 +1,4 @@
+
 <%= javascript_include_tag :defaults, "nested_form" %>
 
 <h1>show article page</h1>
@@ -19,8 +20,8 @@
 
 <% if logged_in? %>
 <h3>Make Comment</h3>
-  <%= nested_form_for @article  do |f| %>
-    <%= f.fields_for :comments, remote: true, url: article_comments_path(@article), method: :post, wrapper: false  do |comment_form| %>
+  <%= nested_form_for(@article, url: article_comments_path(@article), method: :post, remote: true) do |f| %>
+    <%= f.fields_for :comments do |comment_form| %>
       <% unless comment_form.object.persisted? %>
         <p>
           <%= comment_form.label :commenter%><br>
@@ -36,21 +37,17 @@
       <%= f.link_to_add "add a comment", :comments %>
     </p>
     <p>
-      <%= f.submit %><br>
+      <%= f.submit class: "btn btn-success" %><br>
     </p>
   <% end %>
 <% end %>
 
 <h4> No. of Comments :- <%= @article.comments.count %> </h4>
 <h3> Older Comments :- </h3>
-<div class="comments">
-  <% @comments.each do |comment| %>
-    <%= render comment, article: @article %><br><br>
+<div class="comments" id="comment">
+  <% if @article.is_approved_comment? %>
+    <% @comments.each do |comment| %>
+      <%= render comment, article: @article %>
+    <% end %>
   <% end %>
 </div>
-
-<%if !logged_in? %>
-  <%= render 'users/not_logged_in' %>
-<%else%>
-  <%= render 'users/footer' %>
-<% end %>

@@ -1,3 +1,4 @@
+
 <h1>Edit Article</h1>
 
 <%= render 'users/welcome' %> <br>
@@ -18,12 +19,9 @@
         <%= f.text_area :description %>
       </p>
       <p>
-        <%= f.submit %><br>
+        <%= f.submit class: "btn btn-success" %><br>
       </p>
     <% end %>
   </tr>
 </table>
 
-<br><br>
-<%= link_to "view all aritcles", articles_path %>
-<%= render 'users/footer' %>

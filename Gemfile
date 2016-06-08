@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 # bootstrap
 gem 'twitter-bootstrap-rails'
+gem 'less-rails'
+gem 'therubyracer'
 # manage multiple nested models in single form
 gem 'nested_form'
 

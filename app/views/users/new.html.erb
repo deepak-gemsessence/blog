@@ -1,3 +1,4 @@
+
 <h3>Account Creation Page</h3>
 
 <%= form_for @user do |u| %>
@@ -23,8 +24,8 @@
     Contact No. <%= u.text_field :contact %>
   </p>
   <p>
-    <%= u.submit %><br>
+    <%= u.submit class: "btn btn-success" %><br>
   </p>
 <% end %>
 
-<%= render 'users/not_logged_in' %>
+

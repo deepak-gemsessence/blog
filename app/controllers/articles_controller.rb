@@ -1,8 +1,7 @@
 class ArticlesController < ApplicationController
 
   skip_before_action :check_user_log_in
-  before_action :get_id, only: [:show, :edit, :update, :destroy]
-
+  before_action :get_id, only: [:show, :update, :edit, :destroy]
 
   def index
     if !logged_in?
@@ -32,12 +31,13 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    unless @article.user_id == current_user.id
+      flash[:error] = "you are not authorized to edit this article"
+      redirect_to articles_path
+    end
   end
 
   def update
-    # have to pass approved=true for author
-    # @comment.authors_comment(current_user)
-    binding.pry
     if @article.update(validate_params)
       redirect_to @article
     else
@@ -53,14 +53,11 @@ class ArticlesController < ApplicationController
   private
 
   def validate_params
-    a = params['article']["comments_attributes"] && params['article']["comments_attributes"].each{|k, v| v.merge!(user_id: current_user.id)}
-
-    params.require(:article).permit(:title, :description, comments_attributes: [:id, :commenter, :user_id, :body, :approved])
-
+    params.require(:article).permit(:title, :description, comments_attributes: [:id, :commenter, :body, :user_id, :approved])
   end
 
   def get_id
-    @article = current_user.articles.find(params[:id])
+    @article = Article.find(params[:id])
   end
 
 end

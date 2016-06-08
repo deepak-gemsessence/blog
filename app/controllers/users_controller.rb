@@ -23,17 +23,20 @@ class UsersController < ApplicationController
   end
 
   def show
-    flash[:alert] = "Your are on show page"
   end
 
   def edit
-    redirect_to users_path unless @user.match_current_user(current_user)
+    unless @user.match_current_user(current_user)
+      flash[:error] = "You are not authorized to edit this user."
+      redirect_to users_path
+    end
   end
 
   def update
     if @user.update(validating_updated_params)
       redirect_to @user
     else
+      flash[:error] = "invalid details"
       render 'edit'
     end
   end
@@ -43,7 +46,7 @@ class UsersController < ApplicationController
       @user.destroy
       reset_session
       flash[:notice] = "You have successfully logged out."
-      redirect_to welcome_index_path
+      redirect_to root_path
     else
       @user.destroy
       redirect_to users_path
@@ -57,11 +60,11 @@ class UsersController < ApplicationController
   def authenticate_user
     user = User.search_user(params[:username], params[:password])
     if user.present?
-      flash[:success] = "Welcome to our web-site"
+      flash[:success] = "Welcome to Blog"
       session[:current_user_id] = user.first.id
       redirect_to users_path
     else
-      flash.now[:sign_in_error] = "username or password invalid !!!"
+      flash[:error] = "username or password invalid !!!"
       render 'sign_in'
     end
   end

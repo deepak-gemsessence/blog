@@ -1,11 +1,20 @@
-<h1>Sign In Page</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign In Page</title>
+  </head>
+  <body>
+    <%= form_tag(authenticate_user_users_path, method: "get") do %>
+    <%= label_tag(:q, "username:") %> <%= text_field_tag(:username) %> <br><br>
+    <%= label_tag(:q, "password:") %> <%= password_field_tag(:password) %> <br><br>
+    <%= submit_tag("login", class: "btn btn-success") %>
+  <% end %>
+  </body>
+</html>
 
-<%= form_tag(authenticate_user_users_path, method: "get") do %>
-  <%= label_tag(:q, "username:") %> <%= text_field_tag(:username) %> <br><br>
-  <%= label_tag(:q, "password:") %> <%= password_field_tag(:password) %> <br><br>
-  <%= submit_tag("login") %>
-<% end %>
 
 
 
-<%= render 'users/not_logged_in' %>
+
+
+

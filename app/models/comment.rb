@@ -2,6 +2,8 @@ class Comment < ActiveRecord::Base
   belongs_to :article
   belongs_to :user
 
+  before_save :approve_comment, unless: "self.approved_changed?"
+
   # validates :body, presence: true, length: { in: 5..100 }
 
   def is_commenter?(user)
@@ -22,7 +24,12 @@ class Comment < ActiveRecord::Base
   end
 
   def authors_comment(user)
-      self.update_attribute(:approved, true) if is_article_owner?(user)
+    # self.update_attribute(:approved, true) if is_article_owner?(user)
+    # self.update_attribute(:approved, true) if self.article.user_id == user.id
+  end
+
+  def approve_comment
+    self.update_attribute(:approved, true) if is_article_owner?(user)
   end
 
 end

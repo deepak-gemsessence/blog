@@ -1,3 +1,5 @@
-<td><%= art.title.capitalize %></td>
-<td><%= art.description.first(20) %></td>
-<td> <%= link_to "view", art %> </td>
+<div class="col-lg-9">
+  <td><%= art.title.capitalize %></td>
+  <td><%= art.description.first(20) %></td>
+  <td> <%= link_to "view", art, class: "btn btn-info"  %> </td>
+</div>

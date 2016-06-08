@@ -1,47 +1,51 @@
-<h2>all titles</h2>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>all titles</title>
+  </head>
+  <body>
+    <%= render 'users/welcome' %>
+    <br>
 
-<%= render 'users/welcome' %>
-<h3> No of articles are : <%= @articles.count if logged_in? %></h3>
-<br>
-
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-  <% if logged_in? %>
-    <% @articles.each do |article| %>
+    <table>
       <tr>
-        <%= render 'view_article', art: article %>
-        <td> <%= link_to "edit", edit_article_path(article) %> </td>
-        <td> <%= link_to "delete", article, method: :delete, data: { confirm: "You sure?" } %> </td>
+        <th>Title</th>
+        <th>Description</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
-    <% end %>
-    <td><b>Other Authers Articles<b></td>
-    <% @other_authors_articles.each do |article| %>
-      <tr>
-      <%= render 'view_article', art: article %>
-      </tr>
-    <% end -%>
-  <% else %>
-    <td><b>All Articles<b></td>
-    <% @all_articles.each do |article| %>
-      <tr>
-        <%= render 'view_article', art: article %>
-      </tr>
-    <% end -%>
-  <% end %>
+
+      <% if logged_in? %>
+        <% @articles.each do |article| %>
+          <tr>
+            <%= render 'view_article', art: article %>
+            <td> <%= link_to "edit", edit_article_path(article), class: "btn btn-warning"   %> </td>
+            <td> <%= link_to "delete", article, method: :delete, data: { confirm: "You sure?" }, class: "btn btn-danger"   %> </td>
+          </tr>
+        <% end %>
+        <td><b>Other Authers Articles<b></td>
+        <% @other_authors_articles.each do |article| %>
+          <tr>
+          <%= render 'view_article', art: article %>
+          </tr>
+        <% end -%>
+      <% else %>
+        <td><b>All Articles<b></td>
+        <% @all_articles.each do |article| %>
+          <tr>
+            <%= render 'view_article', art: article %>
+          </tr>
+        <% end -%>
+      <% end %>
 
 
-</table>
+    </table>
 
-<%if !logged_in? %>
-  <%= render 'users/not_logged_in' %>
-<%else%>
-  <%= render 'users/footer' %>
-<% end %>
+  </body>
+</html>
+
+
+
+

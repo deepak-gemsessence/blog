@@ -1,4 +1,6 @@
-
-$(".comments").prepend("<%= j(render partial: 'comment', locals: { comment: @comment, article: @comment.article}) %>");
+$('.comments').empty();
+<% @current_article.comments.each do |comment| %>
+  $('.comments').prepend("<%= escape_javascript render(:partial => 'comment', :locals => { comment: comment, article: @current_article }) %>");
+<% end %>
 
 $("#body_input").val('');

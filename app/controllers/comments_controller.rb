@@ -9,19 +9,15 @@ class CommentsController < ApplicationController
   end
 
   def create
-    # params[:comment].merge!({user_id: current_user.id})
-    # @comment = @current_article.comments.new(validate_params)
-    # @comment.authors_comment(current_user)
-    # respond_to do |format|
-    #   if @comment.save
-    #     format.html { redirect_to article_path(@current_article), notice: "comment is done" }
-    #     format.js {render 'create'}
-    #   else
-    #     format.html { render 'new'}
-    #   end
-    # end
+    respond_to do |format|
+      if @current_article.update(validate_params)
+        format.html { redirect_to article_path(@current_article) }
+        format.js {}
+      else
+        format.html { render 'article/show' }
+      end
+    end
   end
-
 
   def show
   end
@@ -57,7 +53,8 @@ class CommentsController < ApplicationController
   end
 
   def validate_params
-    params.require(:comment).permit(:commenter, :body, :user_id, :approved)
+    params['article']["comments_attributes"].each{|k, v| v.merge!(user_id: current_user.id)}
+    params.require(:article).permit(comments_attributes: [:id, :commenter, :body, :user_id])
   end
 
   def current_comment_id
