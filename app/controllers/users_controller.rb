@@ -58,7 +58,8 @@ class UsersController < ApplicationController
   end
 
   def authenticate_user
-    user = User.search_user(params[:username], params[:password])
+    # user = User.search_user(params[:username], params[:password])
+    user = User.match_password?(params[:username], params[:password])
     if user.present?
       flash[:success] = "Welcome to Blog"
       session[:current_user_id] = user.first.id

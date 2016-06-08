@@ -1,3 +1,5 @@
+require 'digest/sha1'
+
 class User < ActiveRecord::Base
 
   has_many :articles, dependent: :destroy
@@ -9,9 +11,21 @@ class User < ActiveRecord::Base
 
   validates :username, uniqueness: true
 
-  def self.search_user(user, password)
-    User.where(username: user, password: password)
+  before_save :encrypt_password, on: :create
+
+  def encrypt_password
+    encrypted_password= Digest::SHA1.hexdigest(password)
+    self.password = encrypted_password
   end
+
+  def self.match_password?(user, password)
+    encrypted_password = Digest::SHA1.hexdigest(password)
+    User.where(username: user, password: encrypted_password)
+  end
+
+  # def self.search_user(user, password)
+  #   User.where(username: user, password: password)
+  # end
 
   def match_current_user(current_user)
     self == current_user
